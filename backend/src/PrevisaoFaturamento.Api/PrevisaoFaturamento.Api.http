@@ -1,0 +1,6 @@
+@PrevisaoFaturamento.Api_HostAddress = http://localhost:5005
+
+GET {{PrevisaoFaturamento.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
