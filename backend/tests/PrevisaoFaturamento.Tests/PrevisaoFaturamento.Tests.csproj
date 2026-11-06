@@ -10,6 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.*" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
@@ -25,6 +27,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\PrevisaoFaturamento.Domain\PrevisaoFaturamento.Domain.csproj" />
     <ProjectReference Include="..\..\src\PrevisaoFaturamento.Application\PrevisaoFaturamento.Application.csproj" />
+    <ProjectReference Include="..\..\src\PrevisaoFaturamento.Infrastructure\PrevisaoFaturamento.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\PrevisaoFaturamento.Api\PrevisaoFaturamento.Api.csproj" />
   </ItemGroup>
 
 </Project>
