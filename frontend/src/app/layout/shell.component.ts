@@ -1,0 +1,51 @@
+import { Component, OnInit, inject } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { AuthStore } from '../core/auth/auth.store';
+
+@Component({
+  selector: 'app-shell',
+  standalone: true,
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  template: `
+    <div class="min-h-screen bg-slate-50 flex flex-col">
+      <header class="bg-white border-b border-slate-200 px-6 py-3.5 flex items-center justify-between">
+        <div class="flex items-center gap-6">
+          <span class="font-bold text-lg text-slate-900">Previsão de Faturamento</span>
+          <nav class="flex items-center gap-4 text-sm font-medium text-slate-600">
+            <a routerLink="/dashboard" routerLinkActive="text-blue-600" class="hover:text-slate-900">
+              Dashboard
+            </a>
+          </nav>
+        </div>
+
+        <div class="flex items-center gap-4">
+          @if (authStore.usuario(); as gestor) {
+            <span class="text-sm text-slate-600">
+              Gestor: <strong class="text-slate-900">{{ gestor.nome }}</strong>
+            </span>
+          }
+          <button
+            type="button"
+            (click)="authStore.sair()"
+            class="text-sm px-3 py-1.5 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100 transition-colors"
+          >
+            Sair
+          </button>
+        </div>
+      </header>
+
+      <main class="flex-1 p-6 max-w-7xl w-full mx-auto">
+        <router-outlet />
+      </main>
+    </div>
+  `
+})
+export class ShellComponent implements OnInit {
+  readonly authStore = inject(AuthStore);
+
+  ngOnInit(): void {
+    if (!this.authStore.usuario()) {
+      this.authStore.carregarPerfil().subscribe();
+    }
+  }
+}
