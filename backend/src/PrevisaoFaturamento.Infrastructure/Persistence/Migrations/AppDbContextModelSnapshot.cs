@@ -47,6 +47,53 @@ namespace PrevisaoFaturamento.Infrastructure.Persistence.Migrations
 
                     b.ToTable("Usuarios", (string)null);
                 });
+
+            modelBuilder.Entity("PrevisaoFaturamento.Domain.Unidades.Unidade", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("AtualizadoEm")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateOnly?>("DataFim")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateOnly>("DataInicio")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Descricao")
+                        .HasMaxLength(250)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Endereco")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("MetaMensal")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("ProjecaoFaturamento")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("UsuarioId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Unidades", (string)null);
+                });
 #pragma warning restore 612, 618
         }
     }

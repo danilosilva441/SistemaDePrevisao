@@ -4,9 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PrevisaoFaturamento.Application.Identidade;
+using PrevisaoFaturamento.Application.Unidades;
 using PrevisaoFaturamento.Domain.Identidade;
+using PrevisaoFaturamento.Domain.Unidades;
 using PrevisaoFaturamento.Infrastructure.Identidade;
 using PrevisaoFaturamento.Infrastructure.Persistence;
+using PrevisaoFaturamento.Infrastructure.Unidades;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,6 +61,12 @@ builder.Services.AddSingleton<ITokenService, JwtTokenService>();
 builder.Services.AddScoped<RegistrarUsuarioUseCase>();
 builder.Services.AddScoped<AutenticarUseCase>();
 builder.Services.AddScoped<ObterUsuarioLogadoUseCase>();
+
+// Módulo Unidades (ADICIONE ESTAS 4 LINHAS)
+builder.Services.AddScoped<IUnidadeRepository, UnidadeRepository>();
+builder.Services.AddScoped<CriarUnidadeUseCase>();
+builder.Services.AddScoped<ListarUnidadesUseCase>();
+builder.Services.AddScoped<DesativarUnidadeUseCase>();
 
 // 5. Autenticação JWT Bearer
 var jwtKey = builder.Configuration["Jwt:Key"]
