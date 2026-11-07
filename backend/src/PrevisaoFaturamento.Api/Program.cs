@@ -3,10 +3,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using PrevisaoFaturamento.Application.Faturamentos;
 using PrevisaoFaturamento.Application.Identidade;
 using PrevisaoFaturamento.Application.Unidades;
+using PrevisaoFaturamento.Domain.Faturamentos;
 using PrevisaoFaturamento.Domain.Identidade;
 using PrevisaoFaturamento.Domain.Unidades;
+using PrevisaoFaturamento.Infrastructure.Faturamentos;
 using PrevisaoFaturamento.Infrastructure.Identidade;
 using PrevisaoFaturamento.Infrastructure.Persistence;
 using PrevisaoFaturamento.Infrastructure.Unidades;
@@ -67,6 +70,8 @@ builder.Services.AddScoped<IUnidadeRepository, UnidadeRepository>();
 builder.Services.AddScoped<CriarUnidadeUseCase>();
 builder.Services.AddScoped<ListarUnidadesUseCase>();
 builder.Services.AddScoped<DesativarUnidadeUseCase>();
+builder.Services.AddScoped<IFaturamentoDiarioRepository, FaturamentoDiarioRepository>();
+builder.Services.AddScoped<FaturamentoUseCases>();
 
 // 5. Autenticação JWT Bearer
 var jwtKey = builder.Configuration["Jwt:Key"]

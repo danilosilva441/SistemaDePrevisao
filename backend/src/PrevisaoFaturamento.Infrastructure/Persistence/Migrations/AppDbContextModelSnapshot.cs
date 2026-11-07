@@ -17,6 +17,84 @@ namespace PrevisaoFaturamento.Infrastructure.Persistence.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.33");
 
+            modelBuilder.Entity("PrevisaoFaturamento.Domain.Faturamentos.FaturamentoDiario", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateOnly>("Data")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DataFechamento")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("FechadoPorUsuarioId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("FundoDeCaixa")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Observacoes")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("StatusCaixa")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("UnidadeId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("ValorConferido")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UnidadeId", "Data")
+                        .IsUnique();
+
+                    b.ToTable("FaturamentosDiarios", (string)null);
+                });
+
+            modelBuilder.Entity("PrevisaoFaturamento.Domain.Faturamentos.FaturamentoParcial", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("FaturamentoDiarioId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("HoraFim")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("HoraInicio")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsAtivo")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Origem")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("Valor")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FaturamentoDiarioId");
+
+                    b.ToTable("FaturamentosParciais", (string)null);
+                });
+
             modelBuilder.Entity("PrevisaoFaturamento.Domain.Identidade.Usuario", b =>
                 {
                     b.Property<Guid>("Id")
@@ -93,6 +171,20 @@ namespace PrevisaoFaturamento.Infrastructure.Persistence.Migrations
                     b.HasIndex("UsuarioId");
 
                     b.ToTable("Unidades", (string)null);
+                });
+
+            modelBuilder.Entity("PrevisaoFaturamento.Domain.Faturamentos.FaturamentoParcial", b =>
+                {
+                    b.HasOne("PrevisaoFaturamento.Domain.Faturamentos.FaturamentoDiario", null)
+                        .WithMany("FaturamentosParciais")
+                        .HasForeignKey("FaturamentoDiarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PrevisaoFaturamento.Domain.Faturamentos.FaturamentoDiario", b =>
+                {
+                    b.Navigation("FaturamentosParciais");
                 });
 #pragma warning restore 612, 618
         }

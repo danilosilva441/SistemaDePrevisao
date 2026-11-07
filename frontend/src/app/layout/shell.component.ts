@@ -24,8 +24,8 @@ import { UnidadeStore } from '../core/unidades/unidade.store';
           @if (unidadeStore.unidades().length > 0) {
             <div class="flex items-center gap-2">
               <label for="unidadeAtiva" class="text-sm text-slate-500 font-medium">Unidade:</label>
-              <select 
-                id="unidadeAtiva" 
+              <select
+                id="unidadeAtiva"
                 class="text-sm border-slate-300 rounded-md focus:ring-blue-600 focus:border-blue-600 py-1.5 pl-3 pr-8 bg-slate-50"
                 [value]="unidadeStore.unidadeAtiva()?.id"
                 (change)="mudarUnidade($event)">
